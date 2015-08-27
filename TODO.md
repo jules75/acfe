@@ -1,2 +1,4 @@
 
-- remove database credentials from code
+These are _code_ TODOs, not features.
+
+- ??
