@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+# database password as first argument
+
+
+# dump data, copy to server
+/cygdrive/c/xampp/mysql/bin/mysqldump.exe -u root -p$1 acfe > acfe.sql
+scp acfe.sql root@50.116.14.16:/srv/acfe
+rm -f acfe.sql
+
+
+# import data on server
+# ?
+# ?

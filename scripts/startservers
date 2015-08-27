@@ -1,0 +1,17 @@
+
+systemctl start mariadb
+pkill -f java
+
+
+JAR=$(ls -t /srv/govhack2015 | head -1)
+java -jar /srv/govhack2015/$JAR &
+disown
+
+JAR=$(ls -t /srv/acfe | head -1)
+cd /srv/acfe
+java -jar /srv/acfe/$JAR &
+cd -
+disown
+
+
+

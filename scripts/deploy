@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+echo "### Removing old JAR files"
+lein clean
+
+echo "### Building JAR file"
+lein ring uberjar
+
+echo "### Uploading JAR file"
+scp target/*standalone.jar root@50.116.14.16:/srv/acfe
+
+echo "### Starting server remotely"
+ssh root@50.116.14.16 /srv/startservers
+
+echo "### Done"
