@@ -99,7 +99,8 @@
   [response]
   (reset! places (read-string response))
   (render/create-map)
-  (render/create-markers @places on-place-click))
+  (render/create-markers @places on-place-click)
+  (update-and-render))
 
 
 (defn on-areas-load
