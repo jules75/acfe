@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `area_facts` (
   `area_id` int(11) NOT NULL,
   `fact_id` int(11) NOT NULL,
   `detail_text` varchar(1000) DEFAULT NULL,
-  `detail_value` int(11) NOT NULL
+  `detail_value` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `facts`;
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `place_facts` (
   `place_id` int(11) NOT NULL,
   `fact_id` int(11) NOT NULL,
   `detail_text` varchar(1000) DEFAULT NULL,
-  `detail_value` int(11) DEFAULT NULL
+  `detail_value` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `regions`;

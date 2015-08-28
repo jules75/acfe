@@ -10,11 +10,11 @@
   (vec (map #(.-innerHTML %) (.-cells htmlrow))))
 
 
-(defn string->int
-  "Convert string to int if possible, otherwise return string."
+(defn string->float
+  "Convert string to float if possible, otherwise return string."
   [s]
-  (if (re-find #"^-{0,1}\d+$" (str s))
-	(.parseInt js/window s)
+  (if (re-find #"^-{0,1}\d+\.{0,1}\d*$" (str s))
+	(.parseFloat js/window s)
 	s))
 
 
@@ -25,7 +25,7 @@
   (let [raw-rows (into [] (map htmlrow->cells (-> table-element .-rows)))
 		first-row (conj (first raw-rows) {:role "annotation"})
 		rest-rows (map #(conj % nil) (rest raw-rows))
-		final-rows (map (partial map string->int) (cons first-row rest-rows))
+		final-rows (map (partial map string->float) (cons first-row rest-rows))
 		data (.arrayToDataTable google.visualization (clj->js final-rows))
 		opts {:title (first first-row)
 			  :isStacked (if stacked? "percent" false)}

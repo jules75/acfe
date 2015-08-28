@@ -77,6 +77,17 @@
   )
 
 
+(defn formatted-fact-detail
+  "A fact contains one detail, which might be a string, int or decimal.
+  Return detail in appropriate format."
+  [fact]
+  (let [value (:detail_value fact)
+		text (:detail_text fact)]
+	(if
+	  (nil? value) text (str value)
+	  )))
+
+
 (defn place-html
   "Return HTML representation of given place facts."
   [place-facts]
@@ -93,7 +104,7 @@
 				[:tr] (e/clone-for
 					   [fact (val category)]
 					   [:td.title] (e/content (:title fact))
-					   [:td.value] (e/content (if (nil? (:detail_text fact)) (str (:detail_value fact)) (:detail_text fact)))
+					   [:td.value] (e/content (formatted-fact-detail fact))
 					   ))))))
 
 
@@ -111,7 +122,7 @@
 	[:table :tbody :tr.area :td]
 	(e/clone-for
 	 [fact (cons {:detail_text "This LGA"} area-facts)]
-	 [:td] (e/content (if (nil? (:detail_text fact)) (str (:detail_value fact)) (:detail_text fact)))
+	 [:td] (e/content (formatted-fact-detail fact))
 	 ))))
 
 
