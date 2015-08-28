@@ -78,9 +78,9 @@
 
 
 (defn place-html
-  "Generate html of facts for given place ID."
-  [id]
-  (let [grouped-facts (group-by :category (find-facts-by-place-id (:db config) id))
+  "Return HTML representation of given place facts."
+  [place-facts]
+  (let [grouped-facts (group-by :category place-facts)
 		any-fact (->> grouped-facts first val first)]
 	(->
 	 (e/html-resource "html/place.html")
@@ -98,29 +98,28 @@
 
 
 (defn area-html
-  "Generate html of facts for given area ID."
-  [id]
-  (let [area-facts (find-facts-by-area-id (:db config) id)]
-	(->
-	 (e/html-resource "html/area.html")
-	 (e/at
-	  [:h2 :span] (e/content (:area (first area-facts)))
-	  [:table :thead :td]
-	  (e/clone-for
-	   [fact (cons nil area-facts)]
-	   [:td] (e/content (:title fact)))
-	  [:table :tbody :tr.area :td]
-	  (e/clone-for
-	   [fact (cons {:detail_text "This LGA"} area-facts)]
-	   [:td] (e/content (if (nil? (:detail_text fact)) (str (:detail_value fact)) (:detail_text fact)))
-	   )))))
+  "Return HTML representation of given area facts."
+  [area-facts]
+  (->
+   (e/html-resource "html/area.html")
+   (e/at
+	[:h2 :span] (e/content (:area (first area-facts)))
+	[:table :thead :td]
+	(e/clone-for
+	 [fact (cons nil area-facts)]
+	 [:td] (e/content (:title fact)))
+	[:table :tbody :tr.area :td]
+	(e/clone-for
+	 [fact (cons {:detail_text "This LGA"} area-facts)]
+	 [:td] (e/content (if (nil? (:detail_text fact)) (str (:detail_value fact)) (:detail_text fact)))
+	 ))))
 
 
 (defroutes routes
   (GET "/data/places.clj" [] (str "#{" (reduce str (find-places (:db config))) "}"))
   (GET "/data/areas.clj" [] (str "#{" (apply str (get-areas)) "}"))
-  (GET "/api/place.html" [id] (e/emit* (place-html id)))
-  (GET "/api/area.html" [id] (e/emit* (area-html id)))
+  (GET "/api/place.html" [id] (e/emit* (place-html (find-facts-by-place-id (:db config) id))))
+  (GET "/api/area.html" [id] (e/emit* (area-html (find-facts-by-area-id (:db config) id))))
   (GET "/" [] (main-template))
   (resources "/")
   (not-found "Page not found"))
