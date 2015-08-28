@@ -81,11 +81,13 @@
   "A fact contains one detail, which might be a string, int or decimal.
   Return detail in appropriate format."
   [fact]
-  (let [value (:detail_value fact)
+  (let [whole? #(== % (int %)) ; double equals to handle bigints properly
+		value (:detail_value fact)
 		text (:detail_text fact)]
-	(if
-	  (nil? value) text (str value)
-	  )))
+	(cond
+	 (nil? value) text
+	 (whole? value) (str (int value))
+	 :else (str value))))
 
 
 (defn place-html
