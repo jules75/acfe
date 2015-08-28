@@ -25,7 +25,7 @@
 (defn create-map
   "Creates Google Map object in DOM, binds to global gmap."
   []
-  (let [opts {:center {:lat -37 :lng 143} :zoom 7}
+  (let [opts {:zoom 7}
 		mapobj (google.maps.Map. (sel1 :#map) (clj->js opts))]
 	(reset! gmap mapobj)
 	))
@@ -67,11 +67,9 @@
 
 (defn create-markers
   [places click-handler]
-  (reset! gmarkers
-		  (doall (map
-				  #(create-marker (:lat %) (:lng %) @gmap (:title %) (:id %) (:category %)
-								  click-handler)
-				  places))))
+  (let [f #(create-marker (:lat %) (:lng %) @gmap (:title %) (:id %) (:category %) click-handler)]
+	(reset! gmarkers (doall (map f places))))
+  (.setCenter @gmap (.getPosition (first @gmarkers))))
 
 
 
