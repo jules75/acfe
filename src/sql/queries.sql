@@ -6,7 +6,7 @@ FROM places INNER JOIN place_categories
 
 
 -- name: find-areas
-SELECT `boundary-string`, areas.title AS lga, regions.title AS region, areas.id
+SELECT `boundary-string`, areas.title AS lga, regions.colour AS colour, regions.title AS region, areas.id
 FROM areas INNER JOIN regions
 	ON areas.region_id = regions.id;
 

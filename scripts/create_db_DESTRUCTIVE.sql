@@ -64,7 +64,8 @@ CREATE TABLE IF NOT EXISTS `place_facts` (
 DROP TABLE IF EXISTS `regions`;
 CREATE TABLE IF NOT EXISTS `regions` (
 `id` int(11) NOT NULL,
-  `title` varchar(20) NOT NULL
+  `title` varchar(20) NOT NULL,
+  `colour` varchar(7) NOT NULL DEFAULT '#00ff00'
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 

@@ -94,12 +94,11 @@
 (defn create-polygons
   [areas click-handler hover-handler]
   (let [create-latlng #(google.maps.LatLng. (:lat %) (:lng %))
-		region-colors {"Barwon South West" "#0000ff" "Grampians" "#ff0000"}
 		create-poly #(create-polygon
 					  (:lga %)
 					  (clj->js (map create-latlng (:boundary %)))
 					  @gmap
-					  (get region-colors (:region %))
+					  (:colour %)
 					  (:id %)
 					  click-handler
 					  hover-handler)]
