@@ -121,7 +121,6 @@ div.panel {
 
 /* tabs
 */
-
 .ui-tabs-nav li {
 	display: inline-block;
 	border: 1px solid black;
@@ -132,5 +131,13 @@ div.panel {
 	text-decoration: none;
 	color: black;
 }
+
+
+/* charts
+*/
+div.chart {
+	margin: 30px 0;
+}
+
 
 
