@@ -10,5 +10,6 @@ rm -f acfe.sql
 
 
 # import data on server
-# ?
-# ?
+# mysql -u root -p < /srv/acfe/acfe.sql
+# rm /srv/acfe/acfe.sql
+
