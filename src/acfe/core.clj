@@ -114,8 +114,10 @@
   "Return HTML representation of given area facts."
   [area-facts]
   (let [grouped-facts (group-by :category area-facts)
-		population-facts (get grouped-facts "Population 2014")
-		priority-facts (get grouped-facts "Priority groups")]
+		cat1 "Population 2014"
+		cat2 "Priority groups"
+		population-facts (get grouped-facts cat1)
+		priority-facts (get grouped-facts cat2)]
 	(->
 	 (e/html-resource "html/area.html")
 
@@ -123,7 +125,7 @@
 	  [:h2 :span] (e/content (:area (first area-facts)))
 	  [:table#population :thead :td]
 	  (e/clone-for
-	   [fact (cons nil population-facts)]
+	   [fact (cons {:title cat1} population-facts)]
 	   [:td] (e/content (:title fact)))
 	  [:table#population :tbody :tr.area :td]
 	  (e/clone-for
@@ -135,7 +137,7 @@
 	  [:h2 :span] (e/content (:area (first area-facts)))
 	  [:table#priority :thead :td]
 	  (e/clone-for
-	   [fact (cons nil priority-facts)]
+	   [fact (cons {:title cat2} priority-facts)]
 	   [:td] (e/content (:title fact)))
 	  [:table#priority :tbody :tr.area :td]
 	  (e/clone-for
