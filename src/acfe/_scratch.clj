@@ -28,9 +28,9 @@
    [0.4 -14.9 -3.7 -1.0 18.8]])
 
 (defn make-sql
-  [area-id fact-id detail-value]
-  (str "INSERT INTO area_facts (area_id, fact_id, detail_value) VALUES (" area-id ", " fact-id ", " detail-value ");
-	   "))
+  [[a b c]]
+  (str "(" a ", " b ", " c "), "))
+
 
 ; generate SQL statements to insert facts
 (->>
@@ -39,6 +39,7 @@
   (cycle (range 20 25)) ; fact ids
   (flatten values))
  (partition 3)
- (map (partial apply make-sql))
- println)
+ (map make-sql)
+ (apply str)
+ (str "INSERT INTO area_facts (area_id, fact_id, detail_value) VALUES"))
 
