@@ -28,7 +28,9 @@
 		final-rows (map (partial map string->float) (cons first-row rest-rows))
 		data (.arrayToDataTable google.visualization (clj->js final-rows))
 		opts {:title (first first-row)
-			  :vAxis {:minValue 0}
+			  :vAxis {:minValue 0
+					  :textPosition "none"
+					  :gridlines {:color "transparent"}}
 			  :legend {:position "top" :maxLines 3}
 			  :isStacked (if stacked? "percent" false)}
 		chart (case chart-type
