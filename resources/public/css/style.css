@@ -117,6 +117,9 @@ div.panel {
 .panel .dragbar img:hover {
 	opacity: 1;
 }
+.panel table {
+	margin: 10px 0;
+}
 
 
 /* tabs

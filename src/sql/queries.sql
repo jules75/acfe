@@ -27,9 +27,21 @@ WHERE id = ?;
 
 
 -- name: find-facts-by-area-id
-SELECT areas.id, areas.title AS area, facts.title, area_facts.detail_text, area_facts.detail_value, fact_categories.title AS category
+SELECT areas.id, areas.title AS area, areas.region_id, facts.id AS fact_id, facts.title, area_facts.detail_text, area_facts.detail_value, fact_categories.title AS category
 FROM area_facts
 	INNER JOIN areas ON area_facts.area_id=areas.id
     INNER JOIN facts ON area_facts.fact_id=facts.id
     INNER JOIN fact_categories ON facts.fact_category_id=fact_categories.id
 WHERE area_id = ?;
+
+
+-- name: find-fact-averages-by-region-and-category
+SELECT facts.title, facts.id AS fact_id, AVG(area_facts.detail_value) AS detail_value
+FROM area_facts
+       INNER JOIN areas ON area_facts.area_id=areas.id
+    INNER JOIN facts ON area_facts.fact_id=facts.id
+    INNER JOIN fact_categories ON facts.fact_category_id=fact_categories.id
+    INNER JOIN regions ON areas.region_id=regions.id
+WHERE regions.id = ?
+AND fact_categories.id = ?
+GROUP BY title;
