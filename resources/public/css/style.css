@@ -44,19 +44,12 @@ table td {
 	border-bottom: 1px solid #bbb;
 	padding: 3px 3px 5px 3px;
 	font-weight: normal;
-	text-align: right;
 	vertical-align: top;
-}
-table tr td:last-child {
-	font-weight: bold;
-	text-align: left;
-	border-left: 1px solid #bbb;
 }
 table caption {
 	background-color: #0080ff;
 	color: white;
 	padding: 3px;
-	cursor: pointer;
 }
 
 .hidden {
