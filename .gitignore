@@ -2,6 +2,8 @@
 /classes
 /checkouts
 /resources/public/js/out/
+/resources/public/css/*.css
+/resources/public/css/*.css.map
 pom.xml
 pom.xml.asc
 config.clj
@@ -9,3 +11,4 @@ config.clj
 *.class
 /.lein-*
 /.nrepl-port
+.sass-cache
