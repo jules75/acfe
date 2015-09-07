@@ -45,3 +45,14 @@ FROM area_facts
 WHERE regions.id = ?
 AND fact_categories.id = ?
 GROUP BY title;
+
+
+-- name: find-industry-facts-by-area-id
+-- TODO: hard coded fact category IDs - ugh!
+SELECT fact_id, fact_category_id, detail_value, facts.title, fact_categories.title AS category
+FROM area_facts
+	INNER JOIN facts ON area_facts.fact_id=facts.id
+	INNER JOIN fact_categories ON facts.fact_category_id=fact_categories.id
+WHERE fact_category_id IN (6,7,8,9,10,11,12,13,14)
+AND area_id = ?;
+

@@ -146,14 +146,46 @@
 	   [:tbody :tr.region :td.data] (e/content (formatted-fact-detail region-fact))
 	   ))
 
-	  )))
+	 )))
+
+
+(defn industry-html
+  "Return HTML representation of given area's industry data."
+  [id]
+  (let [facts (find-industry-facts-by-area-id (:db config) id)
+		grouped-facts (group-by :fact_category_id facts)
+		cost #(apply + (map :detail_value %))
+		qualifications (map :title (first (vals grouped-facts)))
+		top-five-industries (->> grouped-facts vals (sort-by cost) (take-last 5))]
+	(->
+	 (e/html-resource "html/industry.html")
+
+	 (e/at
+	  [:table :thead :td]
+	  (e/clone-for
+	   [qual (cons nil qualifications)]
+	   [:td] (e/content qual)
+	   ))
+
+	 (e/at
+	  [:table :tbody :tr]
+	  (e/clone-for
+	   [industry top-five-industries]
+	   [:td]
+	   (e/clone-for
+		[fact (cons {:detail_text (:category (first industry))} industry)]
+		[:td] (e/content (formatted-fact-detail fact))
+		)))
+
+	 )))
 
 
 (defroutes routes
   (GET "/data/places.clj" [] (str "#{" (reduce str (find-places (:db config))) "}"))
   (GET "/data/areas.clj" [] (str "#{" (apply str (get-areas)) "}"))
   (GET "/api/place.html" [id] (e/emit* (place-html (find-facts-by-place-id (:db config) id))))
-  (GET "/api/area.html" [id] (e/emit* (area-html id)))
+  (GET "/api/area.html" [id] (e/emit* (industry-html id)))
+  (GET "/api/industry.html" [id] (e/emit* (industry-html id)))
   (GET "/" [] (main-template))
   (resources "/")
   (not-found "Page not found"))
