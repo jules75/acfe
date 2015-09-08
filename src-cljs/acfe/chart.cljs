@@ -31,7 +31,7 @@
 			  :vAxis {:minValue 0
 					  :textPosition "none"
 					  :gridlines {:color "transparent"}}
-			  :legend {:position "top" :maxLines 3}
+			  :legend {:position "none"}
 			  :isStacked (cond
 						  percent? "percent"
 						  stacked? true

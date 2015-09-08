@@ -150,7 +150,7 @@
   (update-buttons! "#categories button" place-categories)
   (update-buttons! "#regions button" regions)
 
-  ;(chart/draw)
+  (chart/draw)
 
   )
 

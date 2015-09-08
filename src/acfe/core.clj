@@ -117,7 +117,7 @@
 		grouped-facts (group-by :fact_category_id facts)
 		cost #(apply + (map :detail_value %))
 		qualifications (map :title (first (vals grouped-facts)))
-		top-five-industries (->> grouped-facts vals (sort-by cost) (take-last 5))]
+		top-five-industries (->> grouped-facts vals (sort-by cost) (take-last 5) reverse)]
 	(->
 	 (e/html-resource "html/industry.html")
 
