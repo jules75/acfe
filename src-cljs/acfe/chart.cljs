@@ -29,10 +29,13 @@
 		data (.arrayToDataTable google.visualization (clj->js final-rows))
 		opts {:title (first first-row)
 			  :vAxis {:minValue 0
-					  :gridlines {:color "transparent"}}
+					  :gridlines {:color "transparent"}
+					  :textStyle {:fontSize 11}
+					  }
 			  :legend {:position "none"}
 			  :height (if (= chart-type :column-chart) 100 "auto")
 			  :width (if (= chart-type :column-chart) 100 "auto")
+			  :tooltip {:textStyle {:fontSize 11}}
 			  :isStacked (cond
 						  percent? "percent"
 						  stacked? true
