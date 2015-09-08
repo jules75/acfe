@@ -110,45 +110,6 @@
 					   ))))))
 
 
-(defn area-html
-  "Return HTML representation of given area facts."
-  [id]
-  (let [area-facts (find-facts-by-area-id (:db config) id)
-		priority-category-id 5
-		region-priority-facts (find-fact-averages-by-region-and-category (:db config) (:region_id (first area-facts)) priority-category-id)
-		grouped-facts (group-by :category area-facts)
-		cat1 "Population 2014"
-		cat2 "Priority groups"
-		population-facts (get grouped-facts cat1)
-		area-priority-facts (get grouped-facts cat2)
-		merged-priority-facts (map vector (sort-by :fact_id region-priority-facts) (sort-by :fact_id area-priority-facts))]
-	(->
-	 (e/html-resource "html/area.html")
-
-	 (e/at
-	  [:h2 :span] (e/content (:area (first area-facts)))
-	  [:table#population :thead :td]
-	  (e/clone-for
-	   [fact (cons {:title cat1} population-facts)]
-	   [:td] (e/content (:title fact)))
-	  [:table#population :tbody :tr.area :td]
-	  (e/clone-for
-	   [fact (cons {:detail_text "This LGA"} population-facts)]
-	   [:td] (e/content (formatted-fact-detail fact))
-	   ))
-
-	 (e/at
-	  [:table#priority]
-	  (e/clone-for
-	   [[region-fact area-fact] merged-priority-facts]
-	   [:thead :td.data] (e/content (:title area-fact))
-	   [:tbody :tr.area :td.data] (e/content (formatted-fact-detail area-fact))
-	   [:tbody :tr.region :td.data] (e/content (formatted-fact-detail region-fact))
-	   ))
-
-	 )))
-
-
 (defn industry-html
   "Return HTML representation of given area's industry data."
   [id]
@@ -180,11 +141,53 @@
 	 )))
 
 
+(defn area-html
+  "Return HTML representation of given area facts."
+  [id]
+  (let [area-facts (find-facts-by-area-id (:db config) id)
+		priority-category-id 5
+		region-priority-facts (find-fact-averages-by-region-and-category (:db config) (:region_id (first area-facts)) priority-category-id)
+		grouped-facts (group-by :category area-facts)
+		cat1 "Population 2014"
+		cat2 "Priority groups"
+		population-facts (get grouped-facts cat1)
+		area-priority-facts (get grouped-facts cat2)
+		merged-priority-facts (map vector (sort-by :fact_id region-priority-facts) (sort-by :fact_id area-priority-facts))]
+	(->
+	 (e/html-resource "html/area.html")
+
+	 (e/at
+	  [:h2 :span] (e/content (:area (first area-facts)))
+	  [:table#population :thead :td]
+	  (e/clone-for
+	   [fact (cons {:title cat1} population-facts)]
+	   [:td] (e/content (:title fact)))
+	  [:table#population :tbody :tr.area :td]
+	  (e/clone-for
+	   [fact (cons {:detail_text "This LGA"} population-facts)]
+	   [:td] (e/content (formatted-fact-detail fact))
+	   ))
+
+	 #_(e/at
+	  [:table#priority]
+	  (e/clone-for
+	   [[region-fact area-fact] merged-priority-facts]
+	   [:thead :td.data] (e/content (:title area-fact))
+	   [:tbody :tr.area :td.data] (e/content (formatted-fact-detail area-fact))
+	   [:tbody :tr.region :td.data] (e/content (formatted-fact-detail region-fact))
+	   ))
+
+	 (e/at
+	  [:div#industry] (e/content (industry-html id)))
+
+	 )))
+
+
 (defroutes routes
   (GET "/data/places.clj" [] (str "#{" (reduce str (find-places (:db config))) "}"))
   (GET "/data/areas.clj" [] (str "#{" (apply str (get-areas)) "}"))
   (GET "/api/place.html" [id] (e/emit* (place-html (find-facts-by-place-id (:db config) id))))
-  (GET "/api/area.html" [id] (e/emit* (industry-html id)))
+  (GET "/api/area.html" [id] (e/emit* (area-html id)))
   (GET "/api/industry.html" [id] (e/emit* (industry-html id)))
   (GET "/" [] (main-template))
   (resources "/")

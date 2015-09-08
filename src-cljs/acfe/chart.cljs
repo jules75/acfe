@@ -21,7 +21,7 @@
 (defn create-chart
   "Given marked up HTMLTableElement table-element, render Google Chart to target-element.
   chart-type is :bar-chart or :column-chart."
-  [target-element table-element chart-type stacked?]
+  [target-element table-element chart-type stacked? percent?]
   (let [raw-rows (into [] (map htmlrow->cells (-> table-element .-rows)))
 		first-row (conj (first raw-rows) {:role "annotation"})
 		rest-rows (map #(conj % nil) (rest raw-rows))
@@ -32,7 +32,10 @@
 					  :textPosition "none"
 					  :gridlines {:color "transparent"}}
 			  :legend {:position "top" :maxLines 3}
-			  :isStacked (if stacked? "percent" false)}
+			  :isStacked (cond
+						  percent? "percent"
+						  stacked? true
+						  :else false)}
 		chart (case chart-type
 				:bar-chart (new google.visualization.BarChart target-element)
 				:column-chart (new google.visualization.ColumnChart target-element)
@@ -41,26 +44,22 @@
 	))
 
 
+(defn draw-one
+  [selector chart-type stacked? percent?]
+  (doseq [table (d/sel selector)]
+	(->
+	 (d/create-element :div)
+	 (d/add-class! "chart")
+	 (d/insert-before! table)
+	 (create-chart table :bar-chart stacked? percent?))
+	(d/remove-class! table "chart") ; so table isn't converted to chart again
+	(d/hide! table)))
+
+
 (defn draw
   []
-
-  (doseq [table (d/sel [:.chart.bar.stacked])]
-	(->
-	 (d/create-element :div)
-	 (d/add-class! "chart")
-	 (d/insert-before! table)
-	 (create-chart table :bar-chart true))
-	(d/remove-class! table "chart") ; so table isn't converted to chart again
-	(d/hide! table))
-
-  (doseq [table (d/sel [:.chart.column])]
-	(->
-	 (d/create-element :div)
-	 (d/add-class! "chart")
-	 (d/insert-before! table)
-	 (create-chart table :column-chart false))
-	(d/remove-class! table "chart")
-	(d/hide! table))
-
+  (draw-one [:.chart.bar.percent] :bar-chart true true)
+  (draw-one [:.chart.bar] :bar-chart true false)
+  (draw-one [:.chart.column] :column-chart false false)
   )
 
