@@ -115,8 +115,8 @@
 (defn tooltip
   "Renders a tooltip at mouse's current position."
   [event text]
-  (let [x (-> event .-ub .-clientX)
-		y (-> event .-ub .-clientY)
+  (let [x (.-clientX (.-wb event))
+		y (.-clientY (.-wb event))
 		offset 20]
 	(->
 	 (d/sel1 :#area-title)
