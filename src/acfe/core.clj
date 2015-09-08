@@ -146,12 +146,16 @@
   [id]
   (let [area-facts (find-facts-by-area-id (:db config) id)
 		priority-category-id 5
+		learning-category-id 15
 		region-priority-facts (find-fact-averages-by-region-and-category (:db config) (:region_id (first area-facts)) priority-category-id)
 		grouped-facts (group-by :category area-facts)
 		cat1 "Population 2014"
 		cat2 "Priority groups"
+		cat3 "Learning"
 		population-facts (get grouped-facts cat1)
 		area-priority-facts (get grouped-facts cat2)
+		learning-facts (get grouped-facts cat3)
+		region-learning-facts (find-fact-averages-by-region-and-category (:db config) (:region_id (first learning-facts)) learning-category-id)
 		merged-priority-facts (map vector (sort-by :fact_id region-priority-facts) (sort-by :fact_id area-priority-facts))]
 	(->
 	 (e/html-resource "html/area.html")
@@ -175,6 +179,17 @@
 	   [:thead :td.data] (e/content (:title area-fact))
 	   [:tbody :tr.area :td.data] (e/content (formatted-fact-detail area-fact))
 	   [:tbody :tr.region :td.data] (e/content (formatted-fact-detail region-fact))
+	   ))
+
+	 (e/at
+	  [:table#learning :thead :td]
+	  (e/clone-for
+	   [fact (cons {:title cat3} learning-facts)]
+	   [:td] (e/content (:title fact)))
+	  [:table#learning :tbody :tr.area :td]
+	  (e/clone-for
+	   [fact (cons {:detail_text "This LGA"} learning-facts)]
+	   [:td] (e/content (formatted-fact-detail fact))
 	   ))
 
 	 (e/at
