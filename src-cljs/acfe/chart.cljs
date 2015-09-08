@@ -29,7 +29,6 @@
 		data (.arrayToDataTable google.visualization (clj->js final-rows))
 		opts {:title (first first-row)
 			  :vAxis {:minValue 0
-					  :textPosition "none"
 					  :gridlines {:color "transparent"}}
 			  :legend {:position "none"}
 			  :isStacked (cond

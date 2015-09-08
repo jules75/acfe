@@ -124,7 +124,7 @@
 	 (e/at
 	  [:table :thead :td]
 	  (e/clone-for
-	   [qual (cons nil qualifications)]
+	   [qual (cons "Main industries" qualifications)]
 	   [:td] (e/content qual)
 	   ))
 
@@ -168,7 +168,7 @@
 	   [:td] (e/content (formatted-fact-detail fact))
 	   ))
 
-	 #_(e/at
+	 (e/at
 	  [:table#priority]
 	  (e/clone-for
 	   [[region-fact area-fact] merged-priority-facts]
