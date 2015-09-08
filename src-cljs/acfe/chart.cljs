@@ -30,10 +30,10 @@
 		opts {:title (first first-row)
 			  :vAxis {:minValue 0
 					  :gridlines {:color "transparent"}
-					  :textStyle {:fontSize 11}
-					  }
+					  :textStyle {:fontSize 11}}
 			  :legend {:position "none"}
-			  :height (if (= chart-type :column-chart) 100 "auto")
+			  :bar {:groupWidth "90%"}
+			  :height 100
 			  :width (if (= chart-type :column-chart) 100 "auto")
 			  :tooltip {:textStyle {:fontSize 11}}
 			  :isStacked (cond
