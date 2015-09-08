@@ -134,7 +134,12 @@ div.panel {
 
 /* charts
 */
-div.chart {
-	margin: 30px 0;
+div.chart.column-chart {
+	float: left;
 }
+div.chart.bar-chart {
+	clear: left;
+}
+
+
 

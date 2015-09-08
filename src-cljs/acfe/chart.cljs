@@ -4,13 +4,13 @@
    [dommy.core :refer-macros [sel sel1] :as d]))
 
 
-(defn htmlrow->cells
+(defn- htmlrow->cells
   "Given HTML row element, return vector of its cell values."
   [htmlrow]
   (vec (map #(.-innerHTML %) (.-cells htmlrow))))
 
 
-(defn string->float
+(defn- string->float
   "Convert string to float if possible, otherwise return string."
   [s]
   (if (re-find #"^-{0,1}\d+\.{0,1}\d*$" (str s))
@@ -18,7 +18,7 @@
 	s))
 
 
-(defn create-chart
+(defn- create-chart
   "Given marked up HTMLTableElement table-element, render Google Chart to target-element.
   chart-type is :bar-chart or :column-chart."
   [target-element table-element chart-type stacked? percent?]
@@ -31,6 +31,8 @@
 			  :vAxis {:minValue 0
 					  :gridlines {:color "transparent"}}
 			  :legend {:position "none"}
+			  :height (if (= chart-type :column-chart) 100 "auto")
+			  :width (if (= chart-type :column-chart) 100 "auto")
 			  :isStacked (cond
 						  percent? "percent"
 						  stacked? true
@@ -43,14 +45,15 @@
 	))
 
 
-(defn draw-one
+(defn- draw-one
   [selector chart-type stacked? percent?]
   (doseq [table (d/sel selector)]
 	(->
 	 (d/create-element :div)
 	 (d/add-class! "chart")
+	 (d/add-class! (name chart-type))
 	 (d/insert-before! table)
-	 (create-chart table :bar-chart stacked? percent?))
+	 (create-chart table chart-type stacked? percent?))
 	(d/remove-class! table "chart") ; so table isn't converted to chart again
 	(d/hide! table)))
 
