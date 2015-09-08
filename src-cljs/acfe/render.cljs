@@ -150,7 +150,8 @@
   (update-buttons! "#categories button" place-categories)
   (update-buttons! "#regions button" regions)
 
-  (chart/draw)
+  (when (nil? (.getItem (.-localStorage js/window) "table-mode"))
+  	(chart/draw))
 
   )
 
