@@ -67,9 +67,10 @@ div.panel {
   background-color: white;
   box-shadow: 0 0 10px #666; }
   div.panel h2 {
-    color: black;
-    text-shadow: 0px 0px 5px white;
-    font-size: 1.2em; }
+    color: #333;
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 0.5em; }
   div.panel .content {
     padding: 0.5em; }
   div.panel .dragbar {
@@ -110,7 +111,8 @@ div.chart.column-chart {
   float: left; }
 
 div.chart.bar-chart {
-  clear: left; }
+  clear: left;
+  margin: 15px 0; }
 
 div.charts-tooltip {
   z-index: 99; }
