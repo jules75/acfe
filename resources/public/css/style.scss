@@ -113,6 +113,12 @@ div.panel {
 	max-width: 600px;
 }
 
+.panel.loading {
+	width: 500px;
+	height: 400px;
+	background: url(/img/spinner.gif) no-repeat white center;
+}
+
 .panel#buttons {
 	right: 1em;
 	top: 1em;

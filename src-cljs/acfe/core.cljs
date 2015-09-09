@@ -68,6 +68,7 @@
 (defn on-facts-load
   "When place/area facts are retrieved from server, render directly to DOM."
   [response]
+  (panel/destroy-loading-panels)
   (d/set-html! (panel/create-panel) response)
   (update-and-render))
 
@@ -82,6 +83,7 @@
 
 (defn on-area-click
   [e]
+  (panel/create-loading-panel)
   (this-as
    this
    (GET (str "/api/area.html?id=" (.-id this))

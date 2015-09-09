@@ -4,9 +4,9 @@
    [dommy.core :refer-macros [sel sel1] :as d]))
 
 
-(defn create-panel
+(defn- create-panel-helper
   "Adds new panel to DOM, returns HTML object of panel's content DIV."
-  []
+  [loading?]
   (let [id (str "panel" (rand-int 1e10))
 		dragbar (-> (d/create-element :p)
 					(d/add-class! "dragbar"))
@@ -18,7 +18,27 @@
 		div (-> (d/create-element :div)
 				(d/set-attr! :id id)
 				(d/add-class! "panel")
-				(d/add-class! "draggable"))]
+				(d/add-class! "draggable")
+				(d/add-class! (if loading? "loading" "normal")))]
 	(d/append! (d/sel1 :body) (-> div (d/append! (d/append! dragbar close)) (d/append! content)))
 	content))
+
+
+(defn create-panel
+  []
+  (create-panel-helper false))
+
+
+(defn create-loading-panel
+  "Creates 'loading' panel that will be cleaned up after normal
+  panel has loaded."
+  []
+  (create-panel-helper true))
+
+
+(defn destroy-loading-panels
+  "Destroys all loading panels in DOM."
+  []
+  (doseq [panel (sel [:.panel.loading])]
+	(d/remove! panel)))
 
