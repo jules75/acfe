@@ -156,7 +156,8 @@
 		area-priority-facts (get grouped-facts cat2)
 		learning-facts (get grouped-facts cat3)
 		region-learning-facts (find-fact-averages-by-region-and-category (:db config) (:region_id (first learning-facts)) learning-category-id)
-		merged-priority-facts (map vector (sort-by :fact_id region-priority-facts) (sort-by :fact_id area-priority-facts))]
+		merged-priority-facts (map vector (sort-by :fact_id region-priority-facts) (sort-by :fact_id area-priority-facts))
+		]
 	(->
 	 (e/html-resource "html/area.html")
 
@@ -176,7 +177,7 @@
 	  [:table#priority]
 	  (e/clone-for
 	   [[region-fact area-fact] merged-priority-facts]
-	   [:thead :td.data] (e/content (:title area-fact))
+	   [:thead :td.title] (e/content (:title area-fact))
 	   [:tbody :tr.area :td.data] (e/content (formatted-fact-detail area-fact))
 	   [:tbody :tr.region :td.data] (e/content (formatted-fact-detail region-fact))
 	   ))
