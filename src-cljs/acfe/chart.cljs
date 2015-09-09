@@ -28,6 +28,7 @@
 		final-rows (map (partial map string->float) (cons first-row rest-rows))
 		data (.arrayToDataTable google.visualization (clj->js final-rows))
 		opts {:title (first first-row)
+			  :titleTextStyle {:fontSize (if (= chart-type :column-chart) 10 15)}
 			  :vAxis {:minValue 0
 					  :gridlines {:color "transparent"}
 					  :textStyle {:fontSize 11}

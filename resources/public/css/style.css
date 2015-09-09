@@ -112,4 +112,7 @@ div.chart.column-chart {
 div.chart.bar-chart {
   clear: left; }
 
+div.charts-tooltip {
+  z-index: 99; }
+
 /*# sourceMappingURL=style.css.map */
