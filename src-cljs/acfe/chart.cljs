@@ -32,6 +32,7 @@
 					  :gridlines {:color "transparent"}
 					  :textStyle {:fontSize 11}
 					  :textPosition (if (= chart-type :column-chart) "none" "out")
+					  :baselineColor "#dd0000"
 					  }
 			  :legend {:position "none"}
 			  :bar {:groupWidth "90%"}
