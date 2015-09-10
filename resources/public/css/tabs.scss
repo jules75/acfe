@@ -1,0 +1,23 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div.tabs {
+	border: 1px solid black;
+	background-color: pink;
+	padding: 20px;
+	li {
+		display: inline;
+	}
+	.tab {
+		border: 1px solid blue;
+		background-color: yellow;
+		padding: 10px;
+	}
+	nav li {
+		text-decoration: underline;
+		cursor: pointer;
+	}
+}
+
