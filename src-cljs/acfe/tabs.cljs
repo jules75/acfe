@@ -24,6 +24,9 @@
   (doseq [[n link tab]
 		  (partition 3 (interleave (range) (sel [:div.tabs :nav :li]) (sel [:div.tabs :.tab])))
 		  :let [id (str "tab" n)]]
+	(when (zero? n)
+	  (d/add-class! link :active)
+	  (d/add-class! tab :active))
 	(d/listen! link :click on-link-click)
 	(d/set-attr! link :data-target id)
 	(d/set-attr! tab :data-id id)))
