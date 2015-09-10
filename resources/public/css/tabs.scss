@@ -4,20 +4,25 @@
 }
 
 div.tabs {
-	border: 1px solid black;
-	background-color: pink;
 	padding: 20px;
-	li {
-		display: inline;
-	}
 	.tab {
 		border: 1px solid blue;
-		background-color: yellow;
 		padding: 10px;
+		display: none;
+	}
+	.tab.active {
+		display: block;
 	}
 	nav li {
-		text-decoration: underline;
+		display: inline;
 		cursor: pointer;
+		background-color: #eee;
+		border: 1px solid #aaa;
+		border-radius: 3px;
+		padding: 3px;
+	}
+	nav li.active {
+		background-color: #ccc;
 	}
 }
 
