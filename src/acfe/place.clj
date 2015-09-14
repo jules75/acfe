@@ -13,9 +13,11 @@
 	 (e/html-resource "html/place.html")
 	 (e/at
 	  [:h2] (e/content (:place any-fact))
+	  [:nav :ul :li] (e/clone-for
+				  [category (distinct (map :category place-facts))]
+				  [:li] (e/content category))
 	  [:table] (e/clone-for
 				[category grouped-facts]
-				[:caption] (e/content (key category))
 				[:tr] (e/clone-for
 					   [fact (val category)]
 					   [:td.title] (e/content (:title fact))
