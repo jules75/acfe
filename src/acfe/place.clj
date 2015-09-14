@@ -12,7 +12,6 @@
 	(->
 	 (e/html-resource "html/place.html")
 	 (e/at
-	  [:pre] (e/content (apply str grouped-facts))
 	  [:h2] (e/content (:place any-fact))
 	  [:table] (e/clone-for
 				[category grouped-facts]

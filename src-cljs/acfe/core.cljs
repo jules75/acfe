@@ -3,6 +3,7 @@
   (:require
    [acfe.panel :as panel]
    [acfe.render :as render]
+   [acfe.tabs :refer [tabify]]
    [dommy.core :refer-macros [sel sel1] :as d]
    [clojure.set :refer [difference union]]
    [cljs.reader :refer [read-string]]
@@ -36,7 +37,8 @@
   (render/render-ui
    @selected-place-categories
    (selected-area-titles @areas @selected-regions)
-   @selected-regions))
+   @selected-regions)
+  (tabify))
 
 
 (defn on-button-click
