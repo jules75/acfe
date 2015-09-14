@@ -4,12 +4,12 @@
    [dommy.core :refer-macros [sel sel1] :as d]))
 
 
-(defn on-link-click
+(defn- on-link-click
   "When tab link clicked, make link and target tab class 'active'."
   [e]
   (let [id (.getAttribute (.-target e) "data-target")
-		links (sel [(-> e .-target .-parentElement) :li])
-		tabs (sel [(-> e .-target .-parentElement .-parentElement .-parentElement) :.tab])
+		links (sel (-> e .-target .-parentElement) :li)
+		tabs (sel (-> e .-target .-parentElement .-parentElement .-parentElement) :.tab)
 		target? #(= id (.getAttribute % "data-id"))
 		tab (first (filter target? tabs))]
 	(doseq [t tabs] (d/remove-class! t :active))
@@ -18,16 +18,23 @@
 	(d/add-class! (.-target e) :active)))
 
 
+(defn- activate-first-tabs
+  "Search DOM for tab sets, activate first tab of each tab set."
+  []
+  (doseq [tabset (sel :div.tabs)]
+	(d/add-class! (sel1 tabset [:nav :li]) :active)
+	(d/add-class! (sel1 tabset :.tab) :active)
+	))
+
+
 (defn tabify
   "Search DOM for tabs, attach targets to nav link and ids to tabs."
   []
   (doseq [[n link tab]
 		  (partition 3 (interleave (range) (sel [:div.tabs :nav :li]) (sel [:div.tabs :.tab])))
 		  :let [id (str "tab" n)]]
-	(when (zero? n)
-	  (d/add-class! link :active)
-	  (d/add-class! tab :active))
 	(d/listen! link :click on-link-click)
 	(d/set-attr! link :data-target id)
-	(d/set-attr! tab :data-id id)))
+	(d/set-attr! tab :data-id id))
+  (activate-first-tabs))
 

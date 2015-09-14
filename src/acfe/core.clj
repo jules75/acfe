@@ -80,19 +80,13 @@
   )
 
 
-;(e/deftemplate tabs-template "html/tabs.html"
-;  []
-;  [:pre] nil
-;  )
-
-
 (defroutes routes
   (GET "/data/places.clj" [] (str "#{" (reduce str (find-places (:db config))) "}"))
   (GET "/data/areas.clj" [] (str "#{" (apply str (get-areas)) "}"))
   (GET "/api/place.html" [id] (e/emit* (place-html (find-facts-by-place-id (:db config) id))))
   (GET "/api/area.html" [id] (e/emit* (area-html id config)))
   (GET "/" [] (main-template))
-  ;(GET "/tabs" [] (tabs-template))
+  (GET "/tabs-test" [] (e/emit* (e/html-resource "html/tabs-test.html")))
   (resources "/")
   (not-found "Page not found"))
 
