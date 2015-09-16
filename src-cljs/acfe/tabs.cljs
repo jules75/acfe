@@ -21,9 +21,11 @@
 (defn- activate-first-tabs
   "Search DOM for tab sets, activate first tab of each tab set."
   []
-  (doseq [tabset (sel :div.tabs)]
+  (doseq [tabset (sel :div.tabs)
+		  :when (not (d/has-class? tabset :converted))]
 	(d/add-class! (sel1 tabset [:nav :li]) :active)
 	(d/add-class! (sel1 tabset :.tab) :active)
+	(d/add-class! tabset :converted) 	; ensure tabset doesn't get hit twice
 	))
 
 
