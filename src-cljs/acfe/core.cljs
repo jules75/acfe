@@ -77,6 +77,7 @@
 
 (defn on-place-click
   [e]
+  (panel/create-loading-panel)
   (this-as
    this
    (GET (str "/api/place.html?id=" (.-id this))
