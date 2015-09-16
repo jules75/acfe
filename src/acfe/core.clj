@@ -33,7 +33,6 @@
 
 
 (def to-double #(Double/parseDouble %))
-(def to-int #(Integer/parseInt %))
 
 
 (defn boundary->coords
@@ -86,7 +85,7 @@
   (GET "/api/place.html" [id] (e/emit* (place-html (find-facts-by-place-id (:db config) id))))
   (GET "/api/area.html" [id] (e/emit* (area-html id config)))
   (GET "/" [] (main-template))
-  (GET "/tabs-test" [] (e/emit* (e/html-resource "html/tabs-test.html")))
+  ;(GET "/tabs-test" [] (e/emit* (e/html-resource "html/tabs-test.html")))
   (resources "/")
   (not-found "Page not found"))
 
