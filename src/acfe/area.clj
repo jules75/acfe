@@ -65,7 +65,7 @@
 	  [:h2 :span] (e/content (:area (first area-facts)))
 	  [:table#population :thead :td]
 	  (e/clone-for
-	   [fact (cons {:title (str cat1 " - " population)} population-facts)]
+	   [fact (cons {:title (str cat1 ": " population)} population-facts)]
 	   [:td] (e/content (:title fact)))
 	  [:table#population :tbody :tr.area :td]
 	  (e/clone-for

@@ -18,6 +18,9 @@
 	s))
 
 
+(def chart-palette ["#FFC89E" "#FFA372" "#E75A67" "#D51667" "#691B4C"])
+
+
 (defn- create-chart
   "Given marked up HTMLTableElement table-element, render Google Chart to target-element.
   chart-type is :bar-chart or :column-chart."
@@ -37,6 +40,7 @@
 			  :hAxis {:textPosition (if (= chart-type :column-chart) "none" "out")}
 			  :legend {:position "none"}
 			  :bar {:groupWidth "90%"}
+			  :colors chart-palette
 			  :height 100
 			  :width (if (= chart-type :column-chart) 100 "auto")
 			  :tooltip {:textStyle {:fontSize 11}}
