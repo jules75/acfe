@@ -1,4 +1,4 @@
-(defproject acfe "0.10"
+(defproject acfe "0.11"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
