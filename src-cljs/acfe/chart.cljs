@@ -31,7 +31,7 @@
 		final-rows (map (partial map string->float) (cons first-row rest-rows))
 		data (.arrayToDataTable google.visualization (clj->js final-rows))
 		opts {:title (first first-row)
-			  :titleTextStyle {:fontSize (if (= chart-type :column-chart) 10 15)}
+			  :titleTextStyle {:fontSize (if (= chart-type :column-chart) 9 15)}
 			  :vAxis {:minValue 0
 					  :gridlines {:color "transparent"}
 					  :textStyle {:fontSize 11}
@@ -41,9 +41,9 @@
 			  :legend {:position (get {:bar-chart "bottom" :column-chart "none"} chart-type)}
 			  :bar {:groupWidth "90%"}
 			  :colors chart-palette
-			  :height 100
 			  :chartArea (if (= chart-type :bar-chart) {:left 100 :width 550})
-			  :width (if (= chart-type :column-chart) 100 "auto")
+			  :height 100
+			  :width (if (= chart-type :column-chart) 120 "auto")
 			  :tooltip {:textStyle {:fontSize 11}}
 			  :isStacked (cond
 						  percent? "percent"
