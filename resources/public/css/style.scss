@@ -109,12 +109,11 @@ div.panel {
 }
 
 .panel.draggable {
-	min-width: 400px;
-	max-width: 600px;
+	width: 700px;
 }
 
 .panel.loading {
-	width: 500px;
+	width: 700px;
 	height: 400px;
 	background: url(/img/spinner.gif) no-repeat white center;
 }
@@ -146,7 +145,7 @@ div.chart.column-chart {
 }
 div.chart.bar-chart {
 	clear: left;
-	margin: 15px 0;
+	margin: 50px 0;
 }
 div.charts-tooltip {
 	z-index: 99;
