@@ -51,8 +51,8 @@
 			  (clj->js
 			   {:paths glatlngs
 				:strokeColor color
-				:strokeOpacity 0.3
-				:strokeWeight 0.9
+				:strokeOpacity 1.0
+				:strokeWeight 2.0
 				:fillColor color
 				:fillOpacity 0.2
 				:id id
