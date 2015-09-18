@@ -52,6 +52,7 @@
 		cat2 "Priority groups"
 		cat3 "Learning"
 		population-facts (get grouped-facts cat1)
+		population (int (reduce + (map :detail_value population-facts)))
 		area-priority-facts (get grouped-facts cat2)
 		learning-facts (get grouped-facts cat3)
 		region-learning-facts (find-fact-averages-by-region-and-category (:db config) (:region_id (first learning-facts)) learning-category-id)
@@ -64,7 +65,7 @@
 	  [:h2 :span] (e/content (:area (first area-facts)))
 	  [:table#population :thead :td]
 	  (e/clone-for
-	   [fact (cons {:title cat1} population-facts)]
+	   [fact (cons {:title (str cat1 " - " population)} population-facts)]
 	   [:td] (e/content (:title fact)))
 	  [:table#population :tbody :tr.area :td]
 	  (e/clone-for
