@@ -42,6 +42,7 @@
 			  :bar {:groupWidth "90%"}
 			  :colors chart-palette
 			  :height 100
+			  :chartArea (if (= chart-type :bar-chart) {:left 100 :width 400})
 			  :width (if (= chart-type :column-chart) 100 "auto")
 			  :tooltip {:textStyle {:fontSize 11}}
 			  :isStacked (cond
