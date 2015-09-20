@@ -113,10 +113,11 @@
 
 
 (defn tooltip
-  "Renders a tooltip at mouse's current position."
+  "Renders a tooltip at mouse's current position.
+  TODO: find less brittle way of getting mouse position."
   [event text]
-  (let [x (.-clientX (.-wb event))
-		y (.-clientY (.-wb event))
+  (let [x (-> event .-xb .-clientX)
+		y (-> event .-xb .-clientY)
 		offset 20]
 	(->
 	 (d/sel1 :#area-title)
