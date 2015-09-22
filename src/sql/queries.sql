@@ -17,7 +17,8 @@ FROM place_facts
 	INNER JOIN places ON place_facts.place_id=places.id
     INNER JOIN facts ON place_facts.fact_id=facts.id
     INNER JOIN fact_categories ON facts.fact_category_id=fact_categories.id
-WHERE place_id = ?;
+WHERE place_id = ?
+ORDER BY fact_categories.id, facts.id;
 
 
 -- name: find-area-by-id
