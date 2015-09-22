@@ -46,6 +46,12 @@ table {
 		font-weight: normal;
 		vertical-align: top;
 	}
+	tr:nth-child(odd) {
+		background-color: #eeeeff;
+	}
+	tr:nth-child(even) {
+		background-color: #fbfbff;
+	}
 	caption {
 		background-color: #0080ff;
 		color: white;
