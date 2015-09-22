@@ -74,7 +74,7 @@
 
 (e/deftemplate main-template "html/_layout.html"
   []
-  [:#categories :ul] (e/content (->> (find-places (:db config)) (map :category) distinct sort (map category-button-snippet)))
+  [:#categories :ul] (e/content (->> (find-places (:db config)) (map :category) distinct (map category-button-snippet)))
   [:#regions :ul] (e/content (->> (get-areas) (map :region) distinct sort (map region-button-snippet)))
   )
 

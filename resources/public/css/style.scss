@@ -127,6 +127,9 @@ div.panel {
 .panel#buttons {
 	right: 1em;
 	top: 1em;
+	.content div {
+		padding: 0.5em 0;
+	}
 }
 
 
