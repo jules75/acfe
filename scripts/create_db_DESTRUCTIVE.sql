@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `fact_categories` (
 DROP TABLE IF EXISTS `places`;
 CREATE TABLE IF NOT EXISTS `places` (
 `id` int(11) NOT NULL,
-  `title` varchar(40) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `lat` decimal(10,5) NOT NULL,
   `lng` decimal(10,5) NOT NULL,
   `place_category_id` int(11) NOT NULL
