@@ -18,7 +18,7 @@
 	s))
 
 
-(def chart-palette ["#FF4126" "#FF8570" "#006581" "#008B7B" "#C8FFBD"])
+(def chart-palette ["#006581" "#FF4126" "#008B7B" "#FF8570" "#C8FFBD"])
 
 
 (defn- create-chart
