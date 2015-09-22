@@ -116,8 +116,17 @@
   (update-and-render))
 
 
+(defn disadvantaged-suburbs-hack
+  "Move last categories button down a bit so it looks separate from the others."
+  []
+  (-> (d/create-element :li)
+	  (d/set-style! :height "20px")
+	  (d/insert-before! (last (sel [:#categories :li])))))
+
+
 (defn init
   []
+  (disadvantaged-suburbs-hack)
   (GET "/data/places.clj" {:handler on-places-load})
   (GET "/data/areas.clj" {:handler on-areas-load}))
 
