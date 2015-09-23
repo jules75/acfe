@@ -76,6 +76,24 @@
   []
   [:#categories :ul] (e/content (->> (find-places (:db config)) (map :category) distinct (map category-button-snippet)))
   [:#regions :ul] (e/content (->> (get-areas) (map :region) distinct sort (map region-button-snippet)))
+
+  ; top-level facts dropdown
+  [:#facts :select.parent :option]
+  (e/clone-for
+   [category (group-by :category (find-area-fact-names (:db config)))]
+   [:option] (e/content (key category)))
+
+  ; child facts dropdowns
+  [:#facts :select.child]
+  (e/clone-for
+   [category (group-by :category (find-area-fact-names (:db config)))]
+   [:select.child] (e/set-attr :data-parent (key category))
+   [:select.child :option]
+   (e/clone-for
+	[fact (val category)]
+	[:option] (e/content (:title fact))
+	))
+
   )
 
 

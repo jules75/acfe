@@ -57,3 +57,11 @@ FROM area_facts
 WHERE fact_category_id IN (6,7,8,9,10,11,12,13,14)
 AND area_id = ?;
 
+
+
+-- name: find-area-fact-names
+SELECT facts.id AS fact_id, facts.title, fact_categories.title AS category
+FROM  facts
+	INNER JOIN fact_categories ON facts.fact_category_id=fact_categories.id;
+
+

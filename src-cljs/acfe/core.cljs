@@ -121,6 +121,7 @@
   []
   (-> (d/create-element :li)
 	  (d/set-style! :height "20px")
+	  (d/set-attr! :id "disadvantaged-suburbs-hack")
 	  (d/insert-before! (last (sel [:#categories :li])))))
 
 
