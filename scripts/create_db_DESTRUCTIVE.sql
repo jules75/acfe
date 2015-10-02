@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `areas` (
 
 DROP TABLE IF EXISTS `area_facts`;
 CREATE TABLE IF NOT EXISTS `area_facts` (
-`area_fact_id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `area_id` int(11) NOT NULL,
   `fact_id` int(11) NOT NULL,
   `detail_text` varchar(1000) DEFAULT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `place_categories` (
 
 DROP TABLE IF EXISTS `place_facts`;
 CREATE TABLE IF NOT EXISTS `place_facts` (
-`place_fact_id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `place_id` int(11) NOT NULL,
   `fact_id` int(11) NOT NULL,
   `detail_text` varchar(1000) DEFAULT NULL,
