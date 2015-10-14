@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `facts` (
 DROP TABLE IF EXISTS `fact_categories`;
 CREATE TABLE IF NOT EXISTS `fact_categories` (
 `id` int(11) NOT NULL,
-  `title` varchar(40) NOT NULL
+  `title` varchar(60) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `places`;

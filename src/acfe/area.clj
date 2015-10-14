@@ -22,7 +22,7 @@
 	 (e/at
 	  [:table :thead :td]
 	  (e/clone-for
-	   [qual (cons "Main industries" qualifications)]
+	   [qual (cons "Main employment industries by qualifications (ABS Census 2011)" qualifications)]
 	   [:td] (e/content qual)
 	   ))
 
@@ -50,7 +50,7 @@
 		grouped-facts (group-by :category area-facts)
 		cat1 "Population 2014"
 		cat2 "Priority groups"
-		cat3 "Learning"
+		cat3 "Pre-accredited learning profile (2015 Delivery Plans)"
 		population-facts (get grouped-facts cat1)
 		population (int (reduce + (map :detail_value population-facts)))
 		area-priority-facts (get grouped-facts cat2)
