@@ -2,6 +2,7 @@
   "Render data model to DOM."
   (:require
    [acfe.chart :as chart]
+   [acfe.tabs :refer [tabify]]
    [dommy.core :refer-macros [sel sel1] :as d]
    [goog.dom :as gdom]
    [goog.fx.Dragger]
@@ -151,8 +152,10 @@
   (update-buttons! "#categories button" place-categories)
   (update-buttons! "#regions button" regions)
 
+  (tabify)  ; must call before chart/draw, otherwise charts look funny
+
   (when (nil? (.getItem (.-localStorage js/window) "table-mode"))
-  	(chart/draw))
+	(chart/draw))
 
   )
 
