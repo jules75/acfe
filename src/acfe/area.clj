@@ -49,11 +49,13 @@
 		region-priority-facts (find-fact-averages-by-region-and-category (:db config) (:region_id (first area-facts)) priority-category-id)
 		grouped-facts (group-by :category area-facts)
 
-		; TODO: eliminate hard-coded categories
-		cat1 "Population 2014"
-		cat2 "Priority groups"
-		cat3 "Pre-accredited learning profile (2015 Delivery Plans)"
-		cat4 "Overview"
+		; TODO: eliminate hard-coded category ids
+		fact-categories (find-fact-categories (:db config))
+		find-by-id (fn [id] (:title (first (filter #(= id (:id %)) fact-categories))))
+		cat1 (find-by-id 4)
+		cat2 (find-by-id 5)
+		cat3 (find-by-id 15)
+		cat4 (find-by-id 0)
 
 		about-text (get-in grouped-facts [cat4 0 :detail_text])
 		population-facts (get grouped-facts cat1)

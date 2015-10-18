@@ -27,6 +27,10 @@ FROM areas
 WHERE id = ?;
 
 
+-- name: find-fact-categories
+SELECT id, title FROM fact_categories;
+
+
 -- name: find-facts-by-area-id
 SELECT areas.id, areas.title AS area, areas.region_id, facts.id AS fact_id, facts.title, area_facts.detail_text, area_facts.detail_value, fact_categories.title AS category
 FROM area_facts
