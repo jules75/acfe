@@ -48,9 +48,14 @@
 		learning-category-id 15
 		region-priority-facts (find-fact-averages-by-region-and-category (:db config) (:region_id (first area-facts)) priority-category-id)
 		grouped-facts (group-by :category area-facts)
+
+		; TODO: eliminate hard-coded categories
 		cat1 "Population 2014"
 		cat2 "Priority groups"
 		cat3 "Pre-accredited learning profile (2015 Delivery Plans)"
+		cat4 "Overview"
+
+		about-text (get-in grouped-facts [cat4 0 :detail_text])
 		population-facts (get grouped-facts cat1)
 		population (int (reduce + (map :detail_value population-facts)))
 		area-priority-facts (get grouped-facts cat2)
@@ -95,6 +100,9 @@
 
 	 (e/at
 	  [:div#industry] (e/content (industry-html id config)))
+
+	 (e/at
+	  [:.about] (e/content about-text))
 
 	 )))
 
