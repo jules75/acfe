@@ -114,8 +114,14 @@
 
 
 (defn tooltip
-  "Renders a tooltip at mouse's current position.
-  TODO: find less brittle way of getting mouse position."
+  "Renders a tooltip at mouse's current position."
+  ;
+  ; The event passed to this function is a Google Maps event, not a standard
+  ; mouseevent. One the properties of this gmaps event IS a standard
+  ; mouseevent. However, the name of the property keeps changing - from xb, to
+  ; ub, to Cb, etc. I'm not sure how often it changes, or why, or if there's a
+  ; pattern. I can't find a method to return the mouseevent we need to inspect.
+  ;
   [event text]
   (let [x (-> event .-xb .-clientX)
 		y (-> event .-xb .-clientY)
