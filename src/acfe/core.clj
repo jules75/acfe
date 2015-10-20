@@ -32,20 +32,14 @@
 (defqueries "sql/queries.sql")
 
 
-(def to-double #(Double/parseDouble %))
-
-
 (defn boundary->coords
-  "Take boundary string (see regions.csv), return coords."
+  "Take boundary string (see db>areas>boundary-string), return coord maps."
   [s]
   (->>
-   (split s #"\s")
-   (map #(split % #","))
-   (map drop-last)
-   (map #(map to-double %))
-   (map #(map (partial format "%.5f") %))
-   (map #(map to-double %))
-   (map #(zipmap [:lng :lat] %))))
+   (for [t (split s #"[\s,]")]
+	 (Double/parseDouble (format t "%.5f")))
+   (partition 3)
+   (map #(zipmap [:lng :lat :alt] %))))
 
 
 (defn get-areas
