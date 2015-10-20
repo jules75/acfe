@@ -2,6 +2,7 @@
   "Generate area HTML from database"
   (:require [acfe.util :refer [formatted-fact-detail]]
 			[net.cgrand.enlive-html :as e]
+			[clojure.string :refer [replace]]
 			[yesql.core :refer [defqueries]]
 			))
 
@@ -38,6 +39,11 @@
 
 	 )))
 
+
+(defn nl2br
+  "Turn line breaks into <br> tags."
+  [s]
+  (replace s #"[\r\n]" "<br>"))
 
 
 (defn area-html
@@ -104,7 +110,7 @@
 	  [:div#industry] (e/content (industry-html id config)))
 
 	 (e/at
-	  [:.about] (e/content about-text))
+	  [:.about] (e/html-content (nl2br about-text))) ; TODO: susceptible to html injection
 
 	 )))
 
