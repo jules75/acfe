@@ -20,7 +20,12 @@
 				(d/add-class! "panel")
 				(d/add-class! "draggable")
 				(d/add-class! (if loading? "loading" "normal")))]
-	(d/append! (d/sel1 :body) (-> div (d/append! (d/append! dragbar close)) (d/append! content)))
+
+	(as-> (d/append! dragbar close) $
+		  (d/append! div $)
+		  (d/append! $ content)
+		  (d/append! (d/sel1 :body) $))
+
 	content))
 
 
